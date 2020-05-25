@@ -20,7 +20,7 @@ pipeline {
                         }
             }
         }
-        stage('Configure Application') {
+        stage('Configure Application Secure Ingress') {
             steps {
                     withKubeConfig([credentialsId: CRED,
                     serverUrl: K8S_URL,
