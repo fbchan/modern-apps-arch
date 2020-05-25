@@ -31,5 +31,16 @@ pipeline {
                         }
             }
         }
+        stage('Display Application') {
+            steps {
+                    withKubeConfig([credentialsId: CRED,
+                    serverUrl: K8S_URL,
+                    namespace: NAMESPACE
+                    ]) {
+                        sh 'kubectl -n sm-juiceshop describe applications juiceshopapp'
+                        
+                        }
+            }
+        }
     }
 }
