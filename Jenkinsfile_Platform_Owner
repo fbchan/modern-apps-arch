@@ -17,14 +17,14 @@ pipeline {
                         
                         }
             }
-        }
-        stage('Display Application') {
+    }
+    stage('Display Secure Ingress') {
             steps {
                     withKubeConfig([credentialsId: CRED,
                     serverUrl: K8S_URL,
                     namespace: NAMESPACE
                     ]) {
-                        sh 'kubectl -n sm-juiceshop describe applications juiceshopapp'
+                        sh 'kubectl -n sm-juiceshop describe secureingress sijs'
                         
                         }
             }
