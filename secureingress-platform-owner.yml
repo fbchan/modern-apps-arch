@@ -1,0 +1,17 @@
+apiVersion: policy.aspenmesh.io/v1alpha1
+kind: SecureIngress
+metadata:
+  name: sijs
+  namespace: sm-juiceshop
+spec:
+  domainName: "sm-js.foobz.com.au"
+#  jwt:
+#  - issuer: "admin@example.com"
+#    jwksUri: "https://auth.example.com/jwks.json"
+  exposedApplications:
+  - applicationReference:
+      name: juiceshopapp
+      namespace: sm-juiceshop
+    serviceReference:
+      name: sm-juiceshop-svc
+      namespace: sm-juiceshop
