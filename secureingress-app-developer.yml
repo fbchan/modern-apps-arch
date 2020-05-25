@@ -1,0 +1,21 @@
+apiVersion: policy.aspenmesh.io/v1alpha1
+kind: Application
+metadata:
+  name: juiceshopapp
+  namespace: sm-juiceshop
+spec:
+  inbound:
+    ports:
+    - number: 80
+      protocol: HTTP
+      paths:
+      - expose:
+          public: true
+       #   jwtSecured: false
+        uri:
+          prefix: /
+      - expose:
+          public: true
+       #   jwtSecured: true
+        uri:
+          exact: /login
