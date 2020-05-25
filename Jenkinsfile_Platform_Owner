@@ -7,26 +7,26 @@ pipeline {
         NAMESPACE = 'default'
         TIMEOUT = '80s'
     }
-    stage('Deploy Secure Ingress') {
+    stages {
+        stage('Deploy Secure Ingress') {
             steps {
                     withKubeConfig([credentialsId: CRED,
                     serverUrl: K8S_URL,
                     namespace: NAMESPACE
                     ]) {
-                        sh 'kubectl -n sm-juiceshop apply -f secureingress-platform-owner.yml'
-                        
-                        }
-            }
-    }
-    stage('Display Secure Ingress') {
-            steps {
-                    withKubeConfig([credentialsId: CRED,
-                    serverUrl: K8S_URL,
-                    namespace: NAMESPACE
-                    ]) {
-                        sh 'kubectl -n sm-juiceshop describe secureingress sijs'
-                        
+                        sh 'kubectl -n sm-juiceshop apply -f secureingress-platform-owner.yml'                        
                         }
             }
         }
+        stage('Display Secure Ingress') {
+            steps {
+                    withKubeConfig([credentialsId: CRED,
+                    serverUrl: K8S_URL,
+                    namespace: NAMESPACE
+                    ]) {
+                        sh 'kubectl -n sm-juiceshop describe secureingress sijs'  
+                        }
+            }
+        }
+    }
 }
