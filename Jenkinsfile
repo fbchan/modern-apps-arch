@@ -2,8 +2,8 @@ pipeline {
     agent any
     environment
     {
-        K8S_URL = 'https://rancher.foobz.com.au/k8s/clusters/c-wjr5k'
-        CRED = 'kubeconfig_gke-2'
+        K8S_URL = 'https://10.4.0.91:6443'
+        CRED = 'kubeconfig_k8s'
         NAMESPACE = 'default'
         TIMEOUT = '80s'
     }
