@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+    environment
+    {
+        K8S_URL = 'https://10.4.0.91:6443'
+        CRED = 'kubeconfig_k8s'
+        NAMESPACE = 'default'
+        TIMEOUT = '80s'
+    }
+    stage('Deploy Secure Ingress') {
+            steps {
+                    withKubeConfig([credentialsId: CRED,
+                    serverUrl: K8S_URL,
+                    namespace: NAMESPACE
+                    ]) {
+                        sh 'kubectl -n sm-juiceshop apply -f secureingress-platform-owner.yml'
+                        
+                        }
+            }
+        }
+        stage('Display Application') {
+            steps {
+                    withKubeConfig([credentialsId: CRED,
+                    serverUrl: K8S_URL,
+                    namespace: NAMESPACE
+                    ]) {
+                        sh 'kubectl -n sm-juiceshop describe applications juiceshopapp'
+                        
+                        }
+            }
+        }
+    }
+}
