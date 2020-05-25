@@ -1,0 +1,37 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: sm-juiceshop-svc
+spec:
+  selector:
+    app: sm-juiceshop
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000
+    name: http
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sm-juiceshop-deploy
+  labels:
+    app: sm-juiceshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sm-juiceshop
+  template:
+    metadata:
+      labels:
+        app: sm-juiceshop
+    spec:
+      containers:
+      - name: sm-juiceshop
+        image: bkimminich/juice-shop:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
