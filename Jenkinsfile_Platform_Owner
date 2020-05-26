@@ -2,8 +2,8 @@ pipeline {
     agent any
     environment
     {
-        K8S_URL = '$K8S_URL'
-        CRED = '$CRED'
+        K8S_URL = 'https://10.4.0.91:6443'
+        CRED = 'kubeconfig_k8s'
         NAMESPACE = 'default'
         TIMEOUT = '80s'
     }
