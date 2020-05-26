@@ -8,6 +8,26 @@ pipeline {
         TIMEOUT = '80s'
     }
     stages {
+        stage('Create apps namespaces') {
+            steps {
+                    withKubeConfig([credentialsId: CRED,
+                    serverUrl: K8S_URL,
+                    namespace: NAMESPACE
+                    ]) {
+                        sh 'kubectl create ns sm-juiceshop'                        
+                        }
+            }
+        }
+        stage('Labeled namespace auto sidecar injection') {
+            steps {
+                    withKubeConfig([credentialsId: CRED,
+                    serverUrl: K8S_URL,
+                    namespace: NAMESPACE
+                    ]) {
+                        sh 'kubectl label --overwrite namespace sm-juiceshop istio-injection=enabled'                        
+                        }
+            }
+        }
         stage('Deploy Secure Ingress') {
             steps {
                     withKubeConfig([credentialsId: CRED,
